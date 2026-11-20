@@ -28,7 +28,7 @@ export function createApp(): Application {
         if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
           return callback(null, true);
         }
-        return callback(null, true); // Permissive in MVP to avoid blocking during timebox
+        return callback(null, false);
       },
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

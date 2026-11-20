@@ -157,21 +157,27 @@ npm run build
 
 ## 🚢 Deployment Guide
 
+The production deployment uses separate services: the React/Vite frontend runs on Vercel, and the Express API runs on Render. The source repository is `Veldora-0/Netflix-Clone`.
+
+- **Frontend:** <https://neonflix-vert.vercel.app>
+- **API:** <https://neonflix-1jlx.onrender.com/api/v1>
+
 ### Deploying Frontend to Vercel
-1. Import repository on [Vercel](https://vercel.com).
+1. Import `Veldora-0/Netflix-Clone` on [Vercel](https://vercel.com).
 2. Set **Root Directory** to `frontend`.
 3. Set **Framework Preset** to `Vite`.
 4. Configure Environment Variable:
-   - `VITE_API_BASE_URL` = `https://<your-render-backend>.onrender.com/api/v1`
+   - `VITE_API_BASE_URL` = `https://neonflix-1jlx.onrender.com/api/v1`
 5. Deploy. The included `vercel.json` ensures client-side routing rewrites work properly.
 
 ### Deploying Backend to Render
-1. Create a **Web Service** on [Render](https://render.com).
+1. Create a **Web Service** named `NEONFLIX` on [Render](https://render.com).
 2. Set **Root Directory** to `backend`.
-3. Build Command: `npm install && npm run build`
+3. Build Command: `npm install --include=dev && npm run build`. The build script uses `rimraf` and TypeScript from dev dependencies, so `--include=dev` is needed when `NODE_ENV=production` is set during the build.
 4. Start Command: `npm start`
 5. Configure Environment Variables:
    - `NODE_ENV` = `production`
-   - `CORS_ORIGIN` = `https://<your-vercel-domain>.vercel.app`
-   - `JWT_ACCESS_SECRET` = `<a-random-32-char-secret>`
+   - `CORS_ORIGIN` = `http://localhost:5173,https://neonflix-vert.vercel.app` (local development and production frontend)
+   - `JWT_ACCESS_SECRET` = generate a unique secret in Render (do not commit it)
    - `JWT_EXPIRES_IN` = `24h`
+6. The deployed API base URL is `https://neonflix-1jlx.onrender.com/api/v1`; its health check is `/health`. Render's free instance may spin down when idle, which can delay the first request. This API uses in-memory storage, so user data is not durable across service restarts or redeploys.
