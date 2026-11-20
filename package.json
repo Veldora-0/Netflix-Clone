@@ -1,0 +1,24 @@
+{
+  "name": "neonflix-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NEONFLIX — Midnight Cinema Entertainment Discovery & Streaming Platform",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "test:backend": "npm --prefix backend run test",
+    "test": "npm run test:backend"
+  },
+  "keywords": [
+    "neonflix",
+    "react",
+    "express",
+    "typescript",
+    "streaming"
+  ],
+  "author": "NEONFLIX Engineering",
+  "license": "ISC"
+}
